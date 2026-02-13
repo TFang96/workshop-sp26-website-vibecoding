@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="card">
+  <h1>Contact Info</h1>
+  <p class="muted">
+    Use the form below, or reach me directly via email/LinkedIn/GitHub.
+  </p>
+
+  <div class="contact-grid">
+    <div>
+      <h2>Direct</h2>
+      <div class="kv"><span>Email</span><a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a></div>
+      <div class="kv"><span>LinkedIn</span><a href="{{ profile.contact.linkedin }}" target="_blank" rel="noreferrer">Profile</a></div>
+      <div class="kv"><span>GitHub</span><a href="{{ profile.contact.github }}" target="_blank" rel="noreferrer">Repos</a></div>
+      <div class="kv"><span>Location</span><span>{{ profile.contact.location }}</span></div>
+    </div>
+
+    <div>
+      <h2>Message (demo)</h2>
+      <form class="form" method="POST" action="{{ url_for('contact_info') }}">
+        <label>
+          Name
+          <input name="name" placeholder="Your name" />
+        </label>
+
+        <label>
+          Email
+          <input name="email" type="email" placeholder="your@email.com" />
+        </label>
+
+        <label>
+          Message
+          <textarea name="message" rows="5" placeholder="Write your message..."></textarea>
+        </label>
+
+        <button class="button" type="submit">Send</button>
+      </form>
+      <p class="muted small">
+        This is intentionally simple. Later you can send emails or store messages in a database.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

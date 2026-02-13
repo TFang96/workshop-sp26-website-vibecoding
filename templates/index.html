@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="card">
+  <h1>{{ profile.name }}</h1>
+  <p class="lead">{{ profile.summary }}</p>
+
+  <div class="contact-strip">
+    <span><strong>Email:</strong> <a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a></span>
+    <span><strong>Location:</strong> {{ profile.contact.location }}</span>
+    <span><a class="button" href="{{ url_for('contact_info') }}">Contact page</a></span>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="card">
+    <h2>Project Experience</h2>
+    <ul class="list">
+      {% for p in profile.projects %}
+        <li class="list-item">
+          <div class="list-title">
+            {% if p.link %}
+              <a href="{{ p.link }}" target="_blank" rel="noreferrer">{{ p.name }}</a>
+            {% else %}
+              {{ p.name }}
+            {% endif %}
+          </div>
+          <div class="muted">{{ p.description }}</div>
+          <div class="tags">
+            {% for t in p.tech %}
+              <span class="tag">{{ t }}</span>
+            {% endfor %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Education</h2>
+    <ul class="list">
+      {% for e in profile.education %}
+        <li class="list-item">
+          <div class="list-title">{{ e.school }}</div>
+          <div>{{ e.degree }} <span class="muted">({{ e.dates }})</span></div>
+          <div class="muted">{{ e.details }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Work Experience</h2>
+  <ul class="list">
+    {% for w in profile.work_experience %}
+      <li class="list-item">
+        <div class="list-title">{{ w.role }} — {{ w.company }}</div>
+        <div class="muted">{{ w.dates }}</div>
+        <ul class="bullets">
+          {% for b in w.bullets %}
+            <li>{{ b }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% endblock %}
