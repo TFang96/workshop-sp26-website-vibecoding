@@ -4,16 +4,44 @@
 <section class="card">
   <h1>Contact Info</h1>
   <p class="muted">
-    Use the form below, or reach me directly via email/LinkedIn/GitHub.
+    Reach out directly or send a quick message below.
   </p>
 
   <div class="contact-grid">
     <div>
       <h2>Direct</h2>
-      <div class="kv"><span>Email</span><a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a></div>
-      <div class="kv"><span>LinkedIn</span><a href="{{ profile.contact.linkedin }}" target="_blank" rel="noreferrer">Profile</a></div>
-      <div class="kv"><span>GitHub</span><a href="{{ profile.contact.github }}" target="_blank" rel="noreferrer">Repos</a></div>
-      <div class="kv"><span>Location</span><span>{{ profile.contact.location }}</span></div>
+
+      <div class="kv">
+        <span>Email</span>
+        <a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a>
+      </div>
+
+      <div class="kv">
+        <span>Phone</span>
+        <a href="tel:{{ profile.contact.phone|replace(' ', '') }}">{{ profile.contact.phone }}</a>
+      </div>
+
+      <div class="kv">
+        <span>GitHub</span>
+        <a href="{{ profile.contact.github }}" target="_blank" rel="noreferrer">{{ profile.contact.github }}</a>
+      </div>
+
+      {% if profile.contact.linkedin %}
+      <div class="kv">
+        <span>LinkedIn</span>
+        <a href="{{ profile.contact.linkedin }}" target="_blank" rel="noreferrer">Open</a>
+      </div>
+      {% endif %}
+
+      <div class="kv">
+        <span>Location</span>
+        <span>{{ profile.location }}</span>
+      </div>
+
+      <div class="kv">
+        <span>Status</span>
+        <span>{{ profile.citizenship }}</span>
+      </div>
     </div>
 
     <div>
@@ -36,8 +64,9 @@
 
         <button class="button" type="submit">Send</button>
       </form>
+
       <p class="muted small">
-        This is intentionally simple. Later you can send emails or store messages in a database.
+        This site keeps things simple for now (no email sending / database).
       </p>
     </div>
   </div>

@@ -4,52 +4,77 @@ app = Flask(__name__)
 app.secret_key = "dev-secret-key-change-me"  # needed for flash messages
 
 
-# --- Example data (edit this to match your real info) ---
+# --- Resume-driven content (edit anytime) ---
 PROFILE = {
-    "name": "Your Name",
-    "title": "Data Science | ML | Full-Stack (Flask)",
+    "name": "Ziheng (Tony) Fang",
+    "headline": "M.S. Data Science (SJSU) | Former Software Developer (MGM Resorts) | Seeking Internship",
+    "location": "San Jose, CA 95112",
+    "citizenship": "US Citizen",
     "summary": (
-        "Short 2–3 sentence intro about what you do, what you’re building, "
-        "and what kinds of roles/projects you’re interested in."
+        "Former full-time software developer currently pursuing an M.S. in Data Science at San Jose State University. "
+        "Seeking an internship. Strong CS fundamentals and hands-on experience with AI/ML topics, reinforcement learning, "
+        "and SQL databases."
     ),
-    "projects": [
-        {
-            "name": "Project A",
-            "description": "What it does, impact, or what you learned.",
-            "tech": ["Python", "Flask", "SQL"],
-            "link": "https://github.com/yourname/project-a",
-        },
-        {
-            "name": "Project B",
-            "description": "A second project with a one-line description.",
-            "tech": ["Pandas", "scikit-learn"],
-            "link": "https://github.com/yourname/project-b",
-        },
-    ],
+    "skills": {
+        "AI/ML": [
+            "Machine Learning",
+            "Neural Networks",
+            "Reinforcement Learning",
+            "Clustering / Cluster Analysis",
+        ],
+        "CS Foundations": ["Search Algorithms", "Game Theory", "Probability", "Mathematical Statistics", "Combinatorics"],
+        "Programming": ["Python", "Java", "C++", "C#"],
+        "Backend & Cloud": ["Spring Boot", "Maven", "Azure DevOps", "CircleCI", "AWS", "CI/CD", "Unit/Integration Testing"],
+        "Data": ["SQL Databases"],
+    },
     "education": [
         {
-            "school": "University Name",
-            "degree": "M.S. in Data Science",
-            "dates": "2024 – 2026",
-            "details": "Relevant coursework: ML, Stats, Data Engineering",
-        }
-    ],
-    "work_experience": [
+            "school": "San Jose State University",
+            "degree": "M.S. Data Science",
+            "dates": "Fall 2024 – Present",
+            "details": [
+                "GPA: 3.4",
+                "Courses: Artificial Intelligence, Topics in ML, Reinforcement Learning, Probability Theory, Cluster Analysis, "
+                "Mathematical Statistics, Database Management, Web Intelligence, Data Visualization",
+                "Thesis: Choosing the number of clusters and the fuzzifier exponent in fuzzy clustering",
+            ],
+        },
         {
-            "company": "Company Name",
-            "role": "Role Title",
-            "dates": "2023 – 2024",
-            "bullets": [
-                "Did X that improved Y by Z%.",
-                "Built/owned feature A; collaborated with B.",
+            "school": "University of Nevada, Las Vegas",
+            "degree": "B.S. Computer Science, Minor in Mathematics",
+            "dates": "Graduated Dec 2020",
+            "details": [
+                "GPA: 3.57",
+                "Dean’s List: Fall 2019, Spring 2020",
+            ],
+        },
+    ],
+    "experience": [
+        {
+            "company": "MGM Resorts Int’l — Payments Team",
+            "role": "Software Developer I",
+            "dates": "Feb 2021 – May 2023",
+            "highlights": [
+                "Developed cloud-based microservices handling 200K+ transactions/month.",
+                "Tech: Java, C#, Maven, Spring Boot, Azure, CircleCI, AWS.",
+                "Wrote unit + integration tests; created Postman tests for endpoints.",
+                "Built/designed CI/CD pipelines using Azure DevOps and CircleCI.",
+                "Deployed applications to Apigee via CircleCI and Azure DevOps.",
+                "Provided on-call support for production issues with 5-minute acknowledgment standard.",
             ],
         }
     ],
+    "projects": [
+        # Your resume excerpt didn’t list projects explicitly.
+        # Add projects here when ready; the page will render them automatically.
+        # Example:
+        # {"name": "Project Name", "description": "...", "tech": ["Python", "Flask"], "link": "https://..."}
+    ],
     "contact": {
-        "email": "you@example.com",
-        "linkedin": "https://www.linkedin.com/in/yourname",
-        "github": "https://github.com/yourname",
-        "location": "City, State",
+        "email": "tony46711@gmail.com",
+        "phone": "(925) 382-2119",
+        "github": "https://github.com/TFang96",
+        "linkedin": "",  # add if you want; page hides empty links
     },
 }
 
@@ -61,10 +86,6 @@ def home():
 
 @app.route("/contact_info", methods=["GET", "POST"])
 def contact_info():
-    """
-    GET  -> shows contact details + a small form
-    POST -> pretends to "send" a message (kept simple: no database/email integration)
-    """
     if request.method == "POST":
         name = request.form.get("name", "").strip()
         email = request.form.get("email", "").strip()
@@ -74,14 +95,12 @@ def contact_info():
             flash("Please fill out all fields.", "error")
             return redirect(url_for("contact_info"))
 
-        # Simple demo behavior: just show a success message.
-        # Later you can integrate email (SMTP) or store messages in a DB.
-        flash("Thanks! Your message was received (demo).", "success")
+        # Keep it simple for now: just confirm receipt (no email/DB).
+        flash("Thanks, Tony will get your message (demo).", "success")
         return redirect(url_for("contact_info"))
 
     return render_template("contact_info.html", profile=PROFILE)
 
 
 if __name__ == "__main__":
-    # debug=True auto-reloads on code changes
     app.run(debug=True)
